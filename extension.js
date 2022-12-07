@@ -40,11 +40,11 @@ function init() {
 function enable() {
     log(`enabling ${Me.metadata.name}`);
     panelButton = new St.Bin({
-        style_class: "panel-button",
+        style_class: "panel-button money-text",
     });
 
     handle_request_dollar_api();
-    Main.panel._centerBox.insert_child_at_index(panelButton, 0);
+    Main.panel._rightBox.insert_child_at_index(panelButton, 0);
     sourceId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
         handle_request_dollar_api();
         return GLib.SOURCE_CONTINUE;
@@ -54,7 +54,7 @@ function enable() {
 // Remove the added button from panel
 function disable() {
     log(`disabling ${Me.metadata.name}`);
-    Main.panel._centerBox.remove_child(panelButton);
+    Main.panel._rightBox.remove_child(panelButton);
 
     if (panelButton) {
         panelButton.destroy();
@@ -72,12 +72,12 @@ async function handle_request_dollar_api() {
     try {
         // Create a new Soup Session
         if (!session) {
-            session = new Soup.Session({ timeout: 10 });
+            session = new Soup.Session({ timeout: 60 });
         }
 
         // Create body of Soup request
         let message = Soup.Message.new_from_encoded_form(
-            "GET", "https://economia.awesomeapi.com.br/last/USD-BRL", Soup.form_encode_hash({}));
+            "GET", "https://s3.amazonaws.com/dolartoday/data.json", Soup.form_encode_hash({}));
 
         // Send Soup request to API Server
         await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (_, r0) => {
@@ -86,13 +86,11 @@ async function handle_request_dollar_api() {
             const body_response = JSON.parse(response);
 
             // Get the value of Dollar Quotation
-            dollarQuotation = body_response["USDBRL"]["bid"];
-            dollarQuotation = dollarQuotation.split(".");
-            dollarQuotation = dollarQuotation[0] + "," + dollarQuotation[1].substring(0, 2);
+            dollarQuotation = body_response["USD"]["promedio"];
 
             // Set text in Widget
             panelButtonText = new St.Label({
-                text: "(USD: 1,00) = (BRL: " + dollarQuotation + ")",
+                text: "[ 1 USD = " + dollarQuotation +" VED ]",
                 y_align: Clutter.ActorAlign.CENTER,
             });
             panelButton.set_child(panelButtonText);
@@ -105,7 +103,7 @@ async function handle_request_dollar_api() {
     } catch (error) {
         log(`Traceback Error in [handle_request_dollar_api]: ${error}`);
         panelButtonText = new St.Label({
-            text: "(USD: 1,00) = (BRL: " + _dollarQuotation + ")" + " * ",
+            text: "[ 1 USD = " + _dollarQuotation + " VED ]" + " * ",
             y_align: Clutter.ActorAlign.CENTER,
         });
         panelButton.set_child(panelButtonText);
