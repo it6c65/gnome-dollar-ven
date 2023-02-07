@@ -44,7 +44,7 @@ function enable() {
     });
 
     handle_request_dollar_api();
-    Main.panel._rightBox.insert_child_at_index(panelButton, 0);
+    Main.panel._centerBox.insert_child_at_index(panelButton, 0);
     sourceId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
         handle_request_dollar_api();
         return GLib.SOURCE_CONTINUE;
@@ -54,7 +54,7 @@ function enable() {
 // Remove the added button from panel
 function disable() {
     log(`disabling ${Me.metadata.name}`);
-    Main.panel._rightBox.remove_child(panelButton);
+    Main.panel._centerBox.remove_child(panelButton);
 
     if (panelButton) {
         panelButton.destroy();
@@ -90,7 +90,7 @@ async function handle_request_dollar_api() {
 
             // Set text in Widget
             panelButtonText = new St.Label({
-                text: "[ 1 USD = " + dollarQuotation +" VED ]",
+                text: "[ 1 USD = " + dollarQuotation +" VES ]",
                 y_align: Clutter.ActorAlign.CENTER,
             });
             panelButton.set_child(panelButtonText);
@@ -103,7 +103,7 @@ async function handle_request_dollar_api() {
     } catch (error) {
         log(`Traceback Error in [handle_request_dollar_api]: ${error}`);
         panelButtonText = new St.Label({
-            text: "[ 1 USD = " + _dollarQuotation + " VED ]" + " * ",
+            text: "[ 1 USD = " + _dollarQuotation + " VES ]" + " * ",
             y_align: Clutter.ActorAlign.CENTER,
         });
         panelButton.set_child(panelButtonText);
