@@ -1,6 +1,6 @@
 # dollar-to-brl
 ```
-Gnome-Shell Extension (41.x,42.x), for conversion dollar USD to real BRL.
+Gnome-Shell Extension (41.x,42.x), for conversion dollar USD to Bs, I use DolarTodar API as reference.
 ```
 
 # Licence
@@ -21,11 +21,16 @@ SPDX-License-Identifier: GPL-2.0-or-later
 
 
 # How to install
-```
-cd /tmp && git clone https://github.com/MichaelDeMattos/dollar-dotpyc.com.git && mv dollar-dotpyc.com dollar@dotpyc.com && cp -av dollar@dotpyc.com ~/.local/share/gnome-shell/extensions/ && gnome-shell-extension-tool --enable-extension dollar@dotpyc.com && rm -rf dollar@dotpyc.com
+```bash
+cd /tmp 
+git clone  https://github.com/it6c65/gnome-dollar-ven.git
+mv gnome-dollar-ven dollar-ve@it6c65.github.com
+cp -av gnome-dollar-ven ~/.local/share/gnome-shell/extensions/ 
+gnome-shell-extension-tool --enable-extension dollar-ve@it6c65.github.com 
+rm -rf dollar@dotpyc.com
 ```
 To restart GNOME Shell in X11, pressing Alt+F2 to open the Run Dialog and enter restart (or just r).
 
 # Preview
-![image](https://user-images.githubusercontent.com/57331815/139193026-c7a321e5-0ba2-45e4-85dc-d1924045f43a.png)
+![image](./ext_applied.png)
 
