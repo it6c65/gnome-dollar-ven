@@ -1,4 +1,4 @@
-# dollar-to-brl
+# Dollar to Bolivares for Gnome
 ```
 Gnome-Shell Extension (41.x,42.x), for conversion dollar USD to Bs, I use DolarTodar API as reference.
 ```
