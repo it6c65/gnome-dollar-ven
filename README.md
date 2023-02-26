@@ -25,11 +25,13 @@ SPDX-License-Identifier: GPL-2.0-or-later
 cd /tmp 
 git clone  https://github.com/it6c65/gnome-dollar-ven.git
 mv gnome-dollar-ven dollar-ve@it6c65.github.com
-cp -av dollar-ve@it6c65.github.com ~/.local/share/gnome-shell/extensions/ 
-gnome-shell-extension-tool --enable-extension dollar-ve@it6c65.github.com 
+cp -av dollar-ve@it6c65.github.com ~/.local/share/gnome-shell/extensions
 rm -rf dollar-ve@it6c65.github.com
+# To restart GNOME Shell in X11, pressing Alt+F2 to open the Run Dialog and enter restart (or just r).
+# Or in wayland logout and login again
+gnome-extensions enable dollar-ve@it6c65.github.com
 ```
-To restart GNOME Shell in X11, pressing Alt+F2 to open the Run Dialog and enter restart (or just r).
+
 
 # Preview
 ![image](./ext_applied.png)
